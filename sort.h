@@ -5,20 +5,19 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-/*Comparison direction macros for bitomic sort */
 #define UP O
 #define DOWN 1
 
 /**
- * enum bool - Enumeration of Boolean values
- * @false: Represent false, equals 0.
- * @true: Represent true, equals to 1.
+ * enum my_bool - Enumeration of Boolean values
+ * @MY_FALSE: Represent false, equals 0.
+ * @MY_TRUE: Represent true, equals to 1.
  */
-typedef enum bool
+typedef enum my_bool
 {
-	false  0,
-	true = 1
-} bool;
+	MY_FALSE = 0,
+	MY_TRUE = 1
+} my_bool;
 
 /**
  * struct listint_s - Doubly linked list node
