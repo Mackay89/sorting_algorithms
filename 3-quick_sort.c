@@ -1,51 +1,63 @@
 #include "sort.h"
 
 void quick_sort(int *array, size_t size);
-void swap(int *a, int *b);
+void swap_ints(int *a, int *b);
 void lumuto_quick_sort(int *array, size_t low, size_t high, size_t size);
 size_t lumuto_partition(int *array, size_t low, size_t high, size_t size);
 void quick_sort(int *array, size_t size);
 
 /**
- * swap - Swaps two element in an array
+ * swap_ints - Swaps two element in an array
  * @a: Pointer to the first element.
  * @b: Pointer to the second element.
  */
-void swap(int *a, int *b)
+void swap_ints(int *a, int *b)
 {
-	int tmp = *a;
+	int tmp;
+
+	tmp = *a;
 	*a = *b;
 	*b = tmp;
 }
 
 /**
- * lumuto_partition - Lumuto partition scheme to order subset  of an array
- * of integer ascending to the last element of pivot
+ * lumuto_partition - Order subset  of an array of integers acoording to 
+ * the lomutu partition scheme
  * @array: Index of the low elemen
  * @high: Index of the high element.
  * @size: The size of the array.
- * Return: Index of the pivot element.
- *
- * Description: Uses the lumuto partition scheme.
+ * Return: To the final partition index.
  */
 size_t lumuto_partition(int *array, size_t low, size_t high, size_t size)
 {
-	size_t i = low - 1;
-	int pivot = array[high];
+	int pivot;
+	size_t j, k;
 
-	for (size_t k = low; k <= high - 1; k++)
+	if ((low >= high) || (array == NULL))
+		return (0);
+
+	pivot = array[high];
+	j = low;
+	for (k = low; k < high; k++)
 	{
-		if (array[k] < pi)
+		if (array[k] <= pivot)
 		{
-			i++;
-			swap(&array[i], &array[k]);
+			if (j != k)
+			{
+				swap_ints(&array[j], &array[k]);
+				print_array(array, size);
+			}
+			j++;
+		}
+		if (j != high)
+		{
+			swap_ints(&array[j],&array[ high]);
 			print_array(array, size);
 		}
 	}
-	swap(&array[i], &array[high]);
-	print_array(array, size);
-	return (i);
+	return (j);
 }
+
 
 /**
  * lumuto_quick_sort - Recursively sorts an array of integers using
@@ -56,12 +68,18 @@ size_t lumuto_partition(int *array, size_t low, size_t high, size_t size)
  */
 void lumuto_quick_sort(int *array, size_t low, size_t high, size_t size)
 {
+	size_t pivot_index;
+
 	if (low < high)
 	{
-		size_t pivot = lumuto_partition(array, low, high, size);
-
-		lumuto_quick_sort(array, low, pivot - 1, size);
-		lumuto_quick_sort(array, pivot + 1, high, size);
+		pivot_index = lumuto_partition(array, low, high, size);
+		if (pivot_index > 0)
+		{
+			if (pivot_index > low)
+				lumuto_quick_sort(array, low, pivot_index - 1, size);
+			if (pivot_index < high)
+				lumuto_quick_sort(array, pivot_index + 1, high, size);
+		}
 	}
 }
 
@@ -75,5 +93,6 @@ void quick_sort(int *array, size_t size)
 {
 	if (array == NULL || size < 2)
 		return;
+
 	lumuto_quick_sort(array, 0, size - 1, size);
 }
