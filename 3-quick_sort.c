@@ -58,7 +58,6 @@ size_t lumuto_partition(int *array, size_t low, size_t high, size_t size)
 	return (j);
 }
 
-
 /**
  * lumuto_quick_sort - Recursively sorts an array of integers using
  * the quick sort algorithm.
@@ -91,8 +90,9 @@ void lumuto_quick_sort(int *array, size_t low, size_t high, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-	if (array == NULL || size < 2)
-		return;
-
-	lumuto_quick_sort(array, 0, size - 1, size);
+	if (array != NULL)
+	{
+		lumuto_quick_sort(array, 0, size - 1, size);
+	}
 }
+
