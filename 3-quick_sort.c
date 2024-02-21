@@ -21,7 +21,7 @@ void swap_ints(int *a, int *b)
 }
 
 /**
- * lumuto_partition - Order subset  of an array of integers acoording to 
+ * lumuto_partition - Order subset  of an array of integers acoording to
  * the lomutu partition scheme
  * @array: Index of the low elemen
  * @high: Index of the high element.
@@ -51,7 +51,7 @@ size_t lumuto_partition(int *array, size_t low, size_t high, size_t size)
 		}
 		if (j != high)
 		{
-			swap_ints(&array[j],&array[ high]);
+			swap_ints(&array[j], &array[high]);
 			print_array(array, size);
 		}
 	}
