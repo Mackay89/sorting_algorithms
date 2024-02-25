@@ -26,7 +26,7 @@ void swap_nodes(listint_t *n1, listint_t *n2)
 }
 
 /**
- * forwad_pass - Perform the foward pass of the cocktail shaker sort algorthm
+ * forward_pass - Perform the foward pass of the cocktail shaker sort algorthm
  * @list: Pointer to the head of listint_t doubly-link list
  * @tail: Pointer to the tail of the list.
  * @swap: Pointer to the swap flag
@@ -35,7 +35,7 @@ void forward_pass(listint_t **list, listint_t *tail, int *swap)
 {
 	for (; tail->next != NULL; tail = tail->next)
 	{
-		if (tail->n > tail->next->n);
+		if (tail->n > tail->next->n)
 		{
 			swap_nodes(tail, tail->next);
 			*swap = 1;
@@ -53,7 +53,7 @@ void forward_pass(listint_t **list, listint_t *tail, int *swap)
  */
 void backward_pass(listint_t **list, listint_t *tail, int *swap)
 {
-	for (; tail->prev != NULL; tail = tail->pre)
+	for (; tail->prev != NULL; tail = tail->prev)
 	{
 		if (tail->n < tail->prev->n)
 		{
@@ -73,21 +73,27 @@ void backward_pass(listint_t **list, listint_t *tail, int *swap)
 void cocktail_sort_list(listint_t **list)
 {
 	int swap;
-	listint_t *tail;
+	listint_t *tail = NULL;
 
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 	do {
 		swap = 0;
+
 		/* Forwad pass */
 		forward_pass(list, *list, &swap);
 
 		/* If no swaps occurred, the list is sorted */
 		if (!swap)
+		{
 			break;
+		}
 
 		/* Backward pass */
+		for (tail = *list; tail->next != NULL; tail = tail->next)
+			;
+
 		backward_pass(list, tail, &swap);
 	} while (swap);
 }
